@@ -4,10 +4,9 @@
   "description": "Following Parcel Tutorial",
   "main": "index.js",
   "scripts": {
-    "dev-scss": "mkdirp dev/css && node-sass --output-style expanded -o dev/css src/scss",
-    "lint": "eslint src/js/*",
-    "dev-code": "rm -rf dev/* && npm run dev-scss && npm run dev-js && npm run lint",
-    "start": "npm run dev-code && parcel src/index.html -p 3000 --open",
+    "dev-scss": "node-sass --output-style expanded -o src/ src/scss",
+    "lint": "eslint src/js/* --fix",
+    "start": "parcel src/index.html -p 3000 --open",
     "build:parcel": "parcel build src/index.html",
     "build": "rm -rf dist/* && npm run build:parcel",
     "clean": "rm -rf dist/* && rm -rf dev/*"
@@ -27,7 +26,7 @@
     "parcel-plugin-svg-sprite": "^1.4.1"
   },
   "dependencies": {},
-  "browserslist": {
-    "target": "> 0.02%"
-  }
+  "browserslist": [
+    "defaults"
+  ]
 }
