@@ -1,0 +1,33 @@
+{
+  "name": "my-awesome-project",
+  "version": "1.0.0",
+  "description": "Following Parcel Tutorial",
+  "main": "index.js",
+  "scripts": {
+    "dev-scss": "mkdirp dev/css && node-sass --output-style expanded -o dev/css src/scss",
+    "lint": "eslint src/js/*",
+    "dev-code": "rm -rf dev/* && npm run dev-scss && npm run dev-js && npm run lint",
+    "start": "npm run dev-code && parcel src/index.html -p 3000 --open",
+    "build:parcel": "parcel build src/index.html",
+    "build": "rm -rf dist/* && npm run build:parcel",
+    "clean": "rm -rf dist/* && rm -rf dev/*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "autoprefixer": "^9.7.2",
+    "eslint": "^6.6.0",
+    "mkdirp": "^0.5.1",
+    "node-sass": "^4.13.0",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-imagemin": "^3.0.0",
+    "parcel-plugin-svg-sprite": "^1.4.1"
+  },
+  "dependencies": {},
+  "browserslist": {
+    "target": "> 0.02%"
+  }
+}
