@@ -1,0 +1,46 @@
+.heroImage {
+  height: 80vh;
+  position: relative;
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 0 20%;
+  }
+  h1 {
+    position: absolute;
+    color: #fff;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+    font-size: 3rem;
+  }
+  p {
+    position: absolute;
+    text-align: center;
+    font-size: 2rem;
+    width: 100%;
+    top: calc(50% + 4rem);
+  }
+}
+
+body {
+  background-color: $mainTheme;
+  color: #e0e0e0;
+}
+
+.center {
+  text-align: center;
+}
+
+.heading {
+  text-align: center;
+  font-size: 48px;
+  color: $accentFour;
+}
+
+.sub-heading{ 
+  text-align: center;
+  color: $accentThree;
+}
