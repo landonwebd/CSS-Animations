@@ -3,9 +3,13 @@
 let slidingCards = document.querySelector(`.sliding-cards`);
 let cards = document.querySelectorAll(`.sliding-cards > li`);
 const viewportWidth = window.innerWidth;
-let cardIterator = 0;
 let cardsWidth = slidingCardsWidth(cards);
 
+
+/** 
+ * This function returns the width of all of the child elements'
+ * widths added together.
+ */
 function slidingCardsWidth(cardsArray) {
   let cardsArrayWidth = 0;
   cardsArray.forEach(card => {
@@ -14,6 +18,11 @@ function slidingCardsWidth(cardsArray) {
   return cardsArrayWidth;
 };
 
+/** 
+ * Function cycles through each of the cards, cloning then and appending
+ * them to the end of the parent node.
+ * It then assigns the cards variable.
+ */
 function cloneCards(cardsArray) {
   cardsArray.forEach(card => {
     let clonedNode = card.cloneNode(true);
@@ -22,11 +31,19 @@ function cloneCards(cardsArray) {
   cards = document.querySelectorAll(`.sliding-cards > li`);
 };
 
-while(cardsWidth < viewportWidth * 3) {
-  cloneCards(cards, cardIterator);
-  cardsWidth = slidingCardsWidth(cards);
-  cardIterator++;
+/**
+ * This function checks the widths of the cards and compares them to the
+ * viewport. If it's less than 3x the viewport, it runs the cloneCards function and recalculates the width.
+ */
+function duplicateCards() {
+  while(cardsWidth < viewportWidth * 3) {
+    cloneCards(cards);
+    cardsWidth = slidingCardsWidth(cards);
+  }
 }
+
+// Calling the duplicateCards function
+duplicateCards();
 
 let positionXstart;
 let positionXend;
