@@ -16,32 +16,47 @@ body {
 .sliding-cards-section{
   overflow: hidden;
   .sliding-cards-track {
-    width: 10000px;
     height: 400px;
     margin: 10vh 0;
     background: #555555;
-    overflow: hidden;
+    display: flex;
     position: relative;
-    .sliding-cards {
+    .sliding-cards-container{
       position: absolute;
       display: flex;
-      width: auto;
-      cursor: pointer;
-      .buffer {
-        width: 50vw;
-        border: solid 2px yellow;
-      }
-      li {
-        margin-right: 16px;
-      }
-      .card {
-        width: 300px;
-        height: 400px;
-        &:nth-child(even) {
-          background-color: lightgreen;
+      flex-wrap: nowrap;
+      .sliding-cards {
+        display: flex;
+        width: auto;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        .buffer {
+          width: 50vw;
+          border: solid 2px yellow;
         }
-        &:nth-child(odd) {
-          background-color: lightblue;
+        li {
+          margin-right: 16px;
+          &.buffer {
+            display: none;
+            @media screen and (min-width: $break-medium){
+              display: block;
+            }
+          }
+        }
+        .card {
+          width: 300px;
+          height: 400px;
+          &:nth-child(even) {
+            background-color: lightgreen;
+          }
+          &:nth-child(odd) {
+            background-color: lightblue;
+          }
         }
       }
     }

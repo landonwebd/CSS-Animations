@@ -1,197 +1,107 @@
-/* eslint-disable */
-
-let slidingCards = document.querySelector(`.sliding-cards`);
-let cards = document.querySelectorAll(`.sliding-cards > li`);
+const slidingCardsContainer = document.querySelector(`.sliding-cards-container`);
+const slidingCards = document.querySelector(`.sliding-cards`);
+const slidingCardsWidth = slidingCards.offsetWidth;
 const viewportWidth = window.innerWidth;
-let cardsWidth = slidingCardsWidth(cards);
-
-
-/** 
- * This function returns the width of all of the child elements'
- * widths added together.
- */
-function slidingCardsWidth(cardsArray) {
-  let cardsArrayWidth = 0;
-  cardsArray.forEach(card => {
-    cardsArrayWidth += (card.offsetWidth + 16);
-  });
-  return cardsArrayWidth;
-};
-
-/** 
- * Function cycles through each of the cards, cloning then and appending
- * them to the end of the parent node.
- * It then assigns the cards variable.
- */
-function cloneCards(cardsArray) {
-  cardsArray.forEach(card => {
-    let clonedNode = card.cloneNode(true);
-    slidingCards.appendChild(clonedNode);
-  })
-  cards = document.querySelectorAll(`.sliding-cards > li`);
-};
 
 /**
- * This function checks the widths of the cards and compares them to the
- * viewport. If it's less than 3x the viewport, it runs the cloneCards function and recalculates the width.
+ * This function compares the width of the cards ul to the width of the
+ * viewport. If it's less than 3x the viewport, it copies the card ul and
+ * appends the copy to the end of the parent cards container;
  */
 function duplicateCards() {
-  while(cardsWidth < viewportWidth * 3) {
-    cloneCards(cards);
-    cardsWidth = slidingCardsWidth(cards);
+  let duplicateCardsWidth = slidingCardsWidth;
+  do {
+    let cardsToClone = slidingCards;
+    let clonedCards = cardsToClone.cloneNode(true);
+    slidingCardsContainer.appendChild(clonedCards);
+    duplicateCardsWidth += slidingCardsWidth;
   }
+  while(duplicateCardsWidth < viewportWidth * 3);
 }
 
 // Calling the duplicateCards function
 duplicateCards();
 
+/**
+ * positionXstart stores starting mouse x position on click/touch.
+ * positionXend stores current mouse position on move
+ * mouseClick tracks if the mouse button is clicked or not
+ */
 let positionXstart;
 let positionXend;
 let mouseClick = false;
 
-slidingCards.addEventListener(`mousedown`, (e) => {
+/**
+ * Thie function captures the current mouse position and sets mouseClick to true.
+ * Will be called on `mousedown` and `touchstart` events.
+ */
+const mouseDownFunction = function (e) {
   e.preventDefault;
   mouseClick = true;
-  positionXstart = e.pageX - slidingCards.offsetLeft;
-})
+  if(e.type === `touchstart`) {
+    positionXstart = e.changedTouches[ 0 ].pageX - slidingCardsContainer.offsetLeft;
+  } else if(e.type === `mousedown`) {
+    positionXstart = e.clientX - slidingCardsContainer.offsetLeft;
+  }
+};
 
-slidingCards.addEventListener(`mousemove`, (e) => {
+/**
+ * The function compares current position of the mouse from where it started and updates 
+ * the left style of the cards container.
+ * Will be called on `mousemove` and `touchmove` events.
+ * 
+ * This function also checks if the mouse is moving left or right. When the container has passed
+ * the left side of the viewport, it copies and removes a cards list.
+ */
+
+const mouseMoveFunction = function (e) {
   e.preventDefault;
   if(!mouseClick) {
     return;
   }
-  positionXend = e.clientX;
-  slidingCards.style.left = (positionXend - positionXstart) + `px`;
-})
+  if(e.type === `touchmove`) {
+    positionXend = e.changedTouches[ 0 ].pageX;
+  } else if(e.type === `mousemove`) {
+    positionXend = e.clientX;
+  }
+  slidingCardsContainer.style.left = positionXend - positionXstart + `px`;
+  let cardLeftPosition = slidingCardsContainer.offsetLeft;
+  if(Math.abs(cardLeftPosition) - slidingCardsWidth >= 0) {
+    let cards = document.querySelectorAll(`.sliding-cards-container > .sliding-cards`);
+    let nodeToClone = cards[ 0 ];
+    let clonedNode = nodeToClone.cloneNode(true);
+    slidingCardsContainer.appendChild(clonedNode);
+    nodeToClone.remove();
+    slidingCardsContainer.style.left = `0px`;
+  } else if(parseInt(slidingCardsContainer.style.left) > 0) {
+    let cards = document.querySelectorAll(`.sliding-cards-container > .sliding-cards`);
+    let nodeToClone = cards[ 0 ];
+    let clonedNode = nodeToClone.cloneNode(true);
+    slidingCardsContainer.prepend(clonedNode);
+    let cardCount = cards.length;
+    let nodeToRemove = cards[ cardCount - 1 ];
+    nodeToRemove.remove();
+    slidingCardsContainer.style.left = -slidingCardsWidth + `px`;
+  }
+};
 
-slidingCards.addEventListener(`mouseup`, (e) => {
+/**
+ * This function stops the function from the mousemove event from being fired.
+ * Is called on mouseleave, mouseup, mouseenter, and touchend events. 
+ */
+
+const mouseClickFalse = function (e) {
   e.preventDefault;
   mouseClick = false;
-  let cardsLeft = slidingCards.offsetLeft;
-  if(Math.abs(cardsLeft) > viewportWidth) {
-    let firstNode = document.querySelector(`.sliding-cards > li`);
-    let clonedNode = firstNode.cloneNode(true);
-    slidingCards.appendChild(clonedNode);
-    cards[ 0 ].remove();
-    cards = document.querySelectorAll(`.sliding-cards > li`);
-  }
-})
+};
 
+slidingCardsContainer.addEventListener(`mousedown`, mouseDownFunction);
+slidingCardsContainer.addEventListener(`touchstart`, mouseDownFunction);
 
+slidingCardsContainer.addEventListener(`mousemove`, mouseMoveFunction);
+slidingCardsContainer.addEventListener(`touchmove`, mouseMoveFunction);
 
-/*
-slide(slider, sliderCards, prev, next);
-
-function slide(wrapper, items, prev, next) {
-  let posX1 = 0,
-    posX2 = 0,
-    posInitial,
-    posFinal,
-    threshold = 100,
-    cards = items.querySelectorAll(`.card`),
-    cardCount = cards.length,
-    cardsWidth = items.querySelectorAll(`.card`)[ 0 ].offsetWidth,
-    firstCard = cards[ 0 ],
-    lastCard = cards[ cardCount - 1 ],
-    cloneLast = lastCard.cloneNode(true),
-    index = 0,
-    allowShift = true;
-
-  wrapper.classList.add(`loaded`);
-
-  // Mouse and Touch events
-  cards.onmousedown = dragStart;
-
-  // Touch events
-  items.addEventListener(`touchstart`, dragStart);
-  items.addEventListener(`touchend`, dragEnd);
-  items.addEventListener(`touchmove`, dragAction);
-
-  // Click events
-  prev.addEventListener(`click`, function () {
-    shiftSlide(-1);
-  });
-  next.addEventListener(`click`, function () {
-    shiftSlide(1);
-  });
-
-  // Transition events
-  items.addEventListener(`transitionend`, checkIndex);
-
-  function dragStart(e) {
-    e = e || window.event;
-    e.preventDefault();
-    posInitial = cards.offsetLeft;
-
-    if(e.type === `touchstart`) {
-      posX1 = e.touches[ 0 ].clientX;
-    } else {
-      posX1 = e.clientX;
-      document.onmouseup = dragEnd;
-      document.onmousemove = dragAction;
-    }
-  }
-
-  function dragAction(e) {
-    e = e || window.event;
-
-    if(e.type === `touchmove`) {
-      posX2 = posX1 - e.touches[ 0 ].clientX;
-      posX1 = e.touches[ 0 ].clientX;
-    } else {
-      posX2 = posX1 - e.clientX;
-      posX1 = e.clientX;
-    }
-    cards.style.left = (cards.offsetLeft - posX2) + `px`;
-  }
-
-  function dragEnd(e) {
-    posFinal = items.offsetLeft;
-    if(posFinal - posInitial < -threshold) {
-      shiftSlide(1, `drag`);
-    } else if(posFinal - posInitial > threshold) {
-      shiftSlide(-1, `drag`);
-    } else {
-      cards.style.left = (posInitial) + `px`;
-    }
-
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-
-  function shiftSlide(dir, action) {
-    items.classList.add(`shifting`);
-
-    if(allowShift) {
-      if(!action) {
-        posInitial = cards.offsetLeft;
-      }
-
-      if(dir === 1) {
-        items.style.left = (posInitial - cardsWidth) + `px`;
-        index++;
-      } else if(dir === -1) {
-        items.style.left = (posInitial + cardsWidth) + `px`;
-        index--;
-      }
-    }
-
-    allowShift = false;
-  }
-
-  function checkIndex() {
-    items.classList.remove(`shifting`);
-
-    if(index === -1) {
-      items.style.left = -(cardCount * cardsWidth) + `px`;
-      index = cardCount - 1;
-    }
-
-    if(index === cardCount) {
-      items.style.left = -(1 * cardsWidth) + `px`;
-      index = 0;
-    }
-
-    allowShift = true;
-  }
-}*/
+slidingCardsContainer.addEventListener(`mouseleave`, mouseClickFalse);
+slidingCardsContainer.addEventListener(`mouseup`, mouseClickFalse);
+slidingCardsContainer.addEventListener(`mouseenter`, mouseClickFalse);
+slidingCardsContainer.addEventListener(`touchend`, mouseClickFalse);
