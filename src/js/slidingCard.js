@@ -39,7 +39,7 @@ const mouseDownFunction = function (e) {
   e.preventDefault;
   mouseClick = true;
   if(e.type === `touchstart`) {
-    positionXstart = e.changedTouches[ 0 ].pageX - slidingCardsContainer.offsetLeft;
+    positionXstart = e.changedTouches[ 0 ].clientX - slidingCardsContainer.offsetLeft;
   } else if(e.type === `mousedown`) {
     positionXstart = e.clientX - slidingCardsContainer.offsetLeft;
   }
@@ -60,10 +60,11 @@ const mouseMoveFunction = function (e) {
     return;
   }
   if(e.type === `touchmove`) {
-    positionXend = e.changedTouches[ 0 ].pageX;
+    positionXend = e.changedTouches[ 0 ].clientX;
   } else if(e.type === `mousemove`) {
     positionXend = e.clientX;
   }
+  console.log(e);
   slidingCardsContainer.style.left = positionXend - positionXstart + `px`;
   let cardLeftPosition = slidingCardsContainer.offsetLeft;
   if(Math.abs(cardLeftPosition) - slidingCardsWidth >= 0) {
