@@ -22,6 +22,20 @@ function duplicateCards() {
 // Calling the duplicateCards function
 duplicateCards();
 
+function positionByEventType(e) {
+  let mousePosition;
+  if(e.type === `touchstart`) {
+    mousePosition = e.changedTouches[ 0 ].clientX - slidingCardsContainer.offsetLeft;
+  } else if(e.type === `mousedown`) {
+    mousePosition = e.clientX - slidingCardsContainer.offsetLeft;
+  } else if(e.type === `touchmove`) {
+    mousePosition = e.changedTouches[ 0 ].clientX;
+  } else if(e.type === `mousemove`) {
+    mousePosition = e.clientX;
+  }
+  return mousePosition;
+}
+
 /**
  * positionXstart stores starting mouse x position on click/touch.
  * positionXend stores current mouse position on move
@@ -38,11 +52,7 @@ let mouseClick = false;
 const mouseDownFunction = function (e) {
   e.preventDefault;
   mouseClick = true;
-  if(e.type === `touchstart`) {
-    positionXstart = e.changedTouches[ 0 ].clientX - slidingCardsContainer.offsetLeft;
-  } else if(e.type === `mousedown`) {
-    positionXstart = e.clientX - slidingCardsContainer.offsetLeft;
-  }
+  positionXstart = positionByEventType(e);
 };
 
 /**
@@ -59,22 +69,18 @@ const mouseMoveFunction = function (e) {
   if(!mouseClick) {
     return;
   }
-  if(e.type === `touchmove`) {
-    positionXend = e.changedTouches[ 0 ].clientX;
-  } else if(e.type === `mousemove`) {
-    positionXend = e.clientX;
-  }
-  console.log(e);
+  positionXend = positionByEventType(e);
   slidingCardsContainer.style.left = positionXend - positionXstart + `px`;
   let cardLeftPosition = slidingCardsContainer.offsetLeft;
-  if(Math.abs(cardLeftPosition) - slidingCardsWidth >= 0) {
+  if(Math.abs(cardLeftPosition) > slidingCardsWidth) {
     let cards = document.querySelectorAll(`.sliding-cards-container > .sliding-cards`);
     let nodeToClone = cards[ 0 ];
     let clonedNode = nodeToClone.cloneNode(true);
     slidingCardsContainer.appendChild(clonedNode);
     nodeToClone.remove();
     slidingCardsContainer.style.left = `0px`;
-  } else if(parseInt(slidingCardsContainer.style.left) > 0) {
+    positionXstart = positionByEventType(e);
+  } else if(parseInt(slidingCardsContainer.style.left) >= 0) {
     let cards = document.querySelectorAll(`.sliding-cards-container > .sliding-cards`);
     let nodeToClone = cards[ 0 ];
     let clonedNode = nodeToClone.cloneNode(true);
@@ -83,6 +89,11 @@ const mouseMoveFunction = function (e) {
     let nodeToRemove = cards[ cardCount - 1 ];
     nodeToRemove.remove();
     slidingCardsContainer.style.left = -slidingCardsWidth + `px`;
+    if(e.type === `touchmove`) {
+      positionXstart = e.changedTouches[ 0 ].clientX - slidingCardsContainer.offsetLeft;
+    } else if(e.type === `mousemove`) {
+      positionXstart = e.clientX - slidingCardsContainer.offsetLeft;
+    }
   }
 };
 
