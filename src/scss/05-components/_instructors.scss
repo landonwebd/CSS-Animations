@@ -1,0 +1,63 @@
+h1 {
+  margin: 5vh 0;
+}
+
+.instructors-container {
+  display: grid;
+  height: auto;
+  grid-template-columns: [Start-Line] 1fr [line2] 1fr [line3] 1fr [End-Line];
+  grid-template-rows: auto;
+  row-gap: 10vh;
+  .instructor {
+    border: solid 1px black;
+    background: lightyellow;
+    width: 300px;
+    color: black;
+    display: grid;
+    grid-template-columns: 125px 1fr;
+    grid-template-rows: 125px 1fr;
+    grid-template-areas:
+      "instructor-photo instructor-info"
+      "instructor-bio instructor-bio";
+    &:nth-child(3n+1) {
+      justify-self: right;
+    }
+    &:nth-child(3n+2) {
+      justify-self: center;
+    }
+    &:nth-child(3n) {
+      justify-self: left;
+    }
+    .instructor-photo {
+      grid-area: instructor-photo;
+      position: relative;
+      img {
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 50%;
+        border: solid 3px red;
+        position: absolute;
+        left: -20%;
+        top: -20%;
+      }
+    }
+    .instructor-info {
+      grid-area: instructor-info;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h3, h4 {
+        margin: 0;
+      }
+    }
+    .instructor-bio {
+      grid-area: instructor-bio;
+      padding: 10px;
+      margin: 0 0 30px;
+      button {
+        margin: 5px 0;
+      }
+    }
+  }
+}
