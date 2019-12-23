@@ -1,24 +1,21 @@
+$timing: 1s;
+$instructorCardWidth: 300px;
+$standardMargin: 20px;
+
 h1 {
   margin: 5vh 0;
 }
 
 .instructors-container {
   display: grid;
-  height: auto;
-  grid-template-columns: [Start-Line] 1fr [line2] 1fr [line3] 1fr [End-Line];
+  grid-template-columns: [Start-Line] 1fr [line2] $instructorCardWidth [line3] 1fr [End-Line];
   grid-template-rows: auto;
-  row-gap: 10vh;
-  .instructor {
-    border: solid 1px black;
-    background: lightyellow;
-    width: 300px;
-    color: black;
-    display: grid;
-    grid-template-columns: 125px 1fr;
-    grid-template-rows: 125px 1fr;
-    grid-template-areas:
-      "instructor-photo instructor-info"
-      "instructor-bio instructor-bio";
+  row-gap: calc(#{$instructorCardWidth} / 3);
+  column-gap: calc(#{$instructorCardWidth} / 3);
+  .instructor-card {
+    width: $instructorCardWidth;
+    height: $instructorCardWidth;
+    position: relative;
     &:nth-child(3n+1) {
       justify-self: right;
     }
@@ -28,36 +25,128 @@ h1 {
     &:nth-child(3n) {
       justify-self: left;
     }
-    .instructor-photo {
-      grid-area: instructor-photo;
-      position: relative;
-      img {
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-        border-radius: 50%;
-        border: solid 3px red;
-        position: absolute;
-        left: -20%;
-        top: -20%;
+  }
+}  
+    
+.instructor {
+  width: 100%;
+  height: 100%;
+  border: solid 1px black;
+  background: lightyellow;
+  color: black;
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(#{$instructorCardWidth} / 3) 1fr;
+  grid-template-rows: calc(#{$instructorCardWidth} / 3) 1fr;
+  grid-template-areas:
+    "instructor-photo instructor-info"
+    "instructor-bio instructor-bio"
+    "read-more read-more";
+  .instructor-photo {
+    grid-area: instructor-photo;
+    img {
+      transition: $timing;
+      min-width: calc(#{$instructorCardWidth} / 3);
+      height: calc(#{$instructorCardWidth} / 3);
+      object-fit: cover;
+      object-position: top;
+      border-radius: 50%;
+      border: solid 3px red;
+      transform: translate(-20%, -20%)
+    }
+  }
+  .instructor-info {
+    grid-area: instructor-info;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h3, h4 {
+      margin: 0;
+      text-align: center;
+    }
+  }
+  .instructor-bio {
+    grid-area: instructor-bio;
+    width: calc(#{$instructorCardWidth} - #{$standardMargin} * 2);
+    transition: $timing;
+    padding: 0;
+    margin: 0 $standardMargin;
+    overflow: hidden;
+    p {
+      overflow: hidden;
+      .hidden-text {
+        display: none;
+      }
+      .show-text {
+        display: block;
       }
     }
-    .instructor-info {
-      grid-area: instructor-info;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      h3, h4 {
-        margin: 0;
+  }
+  .read-more {
+    grid-area: read-more;
+    transition: $timing;
+    margin: $standardMargin;
+    padding: 10px;
+    width: calc(#{$instructorCardWidth} / 2);
+  }
+  &.instructor-active {
+    animation: enlarge-card $timing forwards;
+    transition: transform $timing;
+    &.left-card-active {
+      transform: translate(calc(#{$instructorCardWidth} / 3), calc(#{$instructorCardWidth} / 6));
+    }
+    &.middle-card-active {
+      transform: translate(-$instructorCardWidth, calc(#{$instructorCardWidth} / 6));
+    }
+    &.right-card-active {
+      transform: translate(calc(-#{$instructorCardWidth} * 2 - #{$instructorCardWidth} / 3), calc(#{$instructorCardWidth} / 6));
+    }
+    .instructor-photo {
+      img {
+        transition: $timing;
+        min-width: $instructorCardWidth;
+        height: calc(#{$instructorCardWidth} * 2);
+        transform: translate(0, 0);
+        border-radius: 0;
       }
     }
     .instructor-bio {
-      grid-area: instructor-bio;
-      padding: 10px;
-      margin: 0 0 30px;
-      button {
-        margin: 5px 0;
-      }
+      transform: translateX($instructorCardWidth);
+      width: calc(#{$instructorCardWidth} * 2 - #{$standardMargin} * 2);
     }
+    .read-more {
+      transform: translateX($instructorCardWidth);
+    } 
+  }
+  &.return-instructor {
+    animation: return-card $timing forwards;
+    transition: transform $timing;
+  }
+}
+  
+
+
+@keyframes enlarge-card {
+  0% { z-index: 1 }
+  100% {
+    z-index: 1;
+    width: calc(#{$instructorCardWidth} * 3);
+    height: calc(#{$instructorCardWidth} * 2);
+  }
+}
+
+@keyframes return-card {
+  0% {
+    z-index: 1;
+    width: calc(#{$instructorCardWidth} * 3);
+    height: calc(#{$instructorCardWidth} * 2);
+  }
+  99% {
+    z-index: 1;
+  }
+  100% {
+    z-index: 0;
+    width: $instructorCardWidth;
+    height: $instructorCardWidth;
   }
 }
