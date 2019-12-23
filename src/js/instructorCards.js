@@ -38,26 +38,24 @@ function enlargeCard() {
   let activeCard = this;
 
   document.addEventListener(`click`, checkClick);
+  readMore.addEventListener(`click`, function () {
+    if(readMore.classList.contains(`show-less-active`)) {
+      returnCard();
+      activeCard.addEventListener(`click`, enlargeCard);
+    }
+  });
 
   function checkClick() {
     let isClickInside = activeCard.contains(event.target);
     if(!isClickInside) {
-      returnShit();
-      activeCard.addEventListener(`click`, enlargeCard);
-      document.removeEventListener(`click`, checkClick);
-      return;
-    }
-    let checkClick = activeCard.querySelector(`.read-more`);
-    let isButtonClicked = checkClick.contains(event.target);
-    if(isButtonClicked) {
-      returnShit();
+      returnCard();
       activeCard.addEventListener(`click`, enlargeCard);
       document.removeEventListener(`click`, checkClick);
       return;
     }
   }
 
-  function returnShit() {
+  function returnCard() {
     activeCard.classList.remove(`instructor-active`);
     if(cardNumber % 3 === 2) {
       activeCard.classList.remove(`middle-card-active`);
