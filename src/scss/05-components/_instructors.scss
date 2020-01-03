@@ -8,23 +8,29 @@ h1 {
 
 .instructors-container {
   display: grid;
-  grid-template-columns: [Start-Line] 1fr [line2] $instructorCardWidth [line3] 1fr [End-Line];
+  grid-template-columns: auto;
   grid-template-rows: auto;
   row-gap: calc(#{$instructorCardWidth} / 3);
-  column-gap: calc(#{$instructorCardWidth} / 3);
   .instructor-card {
     width: $instructorCardWidth;
     height: $instructorCardWidth;
     position: relative;
-    &:nth-child(3n+1) {
-      justify-self: right;
+    justify-self: center;
+    @media screen and (min-width: $break-medium){
+      &:nth-child(3n+1) {
+        justify-self: right;
+      }
+      &:nth-child(3n+2) {
+        justify-self: center;
+      }
+      &:nth-child(3n) {
+        justify-self: left;
+      }
     }
-    &:nth-child(3n+2) {
-      justify-self: center;
-    }
-    &:nth-child(3n) {
-      justify-self: left;
-    }
+  }
+  @media screen and (min-width: $break-medium){
+    grid-template-columns: [Start-Line] 1fr [line2] $instructorCardWidth [line3] 1fr [End-Line];
+    column-gap: calc(#{$instructorCardWidth} / 3);
   }
 }  
     
@@ -60,6 +66,7 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transition: $timing;
     h3, h4 {
       margin: 0;
       text-align: center;
@@ -92,30 +99,47 @@ h1 {
   &.instructor-active {
     animation: enlarge-card $timing forwards;
     transition: transform $timing;
-    &.left-card-active {
-      transform: translate(calc(#{$instructorCardWidth} / 3), calc(#{$instructorCardWidth} / 6));
-    }
-    &.middle-card-active {
-      transform: translate(-$instructorCardWidth, calc(#{$instructorCardWidth} / 6));
-    }
-    &.right-card-active {
-      transform: translate(calc(-#{$instructorCardWidth} * 2 - #{$instructorCardWidth} / 3), calc(#{$instructorCardWidth} / 6));
+    @media screen and (min-width: $break-medium){
+      &.left-card-active {
+        transform: translate(calc(#{$instructorCardWidth} / 3), calc(#{$instructorCardWidth} / 6));
+      }
+      &.middle-card-active {
+        transform: translate(-$instructorCardWidth, calc(#{$instructorCardWidth} / 6));
+      }
+      &.right-card-active {
+        transform: translate(calc(-#{$instructorCardWidth} * 2 - #{$instructorCardWidth} / 3), calc(#{$instructorCardWidth} / 6));
+      }
     }
     .instructor-photo {
       img {
         transition: $timing;
-        min-width: $instructorCardWidth;
-        height: calc(#{$instructorCardWidth} * 2);
-        transform: translate(0, 0);
-        border-radius: 0;
+        transform: translate(calc(#{$instructorCardWidth} / 3), 10px);
+        @media screen and (min-width: $break-medium){
+          transform: translate(0, 0);
+          border-radius: 0;
+          min-width: $instructorCardWidth;
+          height: calc(#{$instructorCardWidth} * 2);
+        }
+      }
+    }
+    .instructor-info {
+      transition: $timing;
+      transform: translate(calc(#{$instructorCardWidth} / -6), calc(#{$instructorCardWidth} / 3));
+      @media screen and (min-width: $break-medium){
+        transform: translate(0,0);
       }
     }
     .instructor-bio {
-      transform: translateX($instructorCardWidth);
-      width: calc(#{$instructorCardWidth} * 2 - #{$standardMargin} * 2);
+      transform: translateY(calc(#{$instructorCardWidth} / 3));
+      @media screen and (min-width: $break-medium){
+        transform: translateX($instructorCardWidth);
+        width: calc(#{$instructorCardWidth} * 2 - #{$standardMargin} * 2);
+      }
     }
     .read-more {
-      transform: translateX($instructorCardWidth);
+      @media screen and (min-width: $break-medium){
+        transform: translateX($instructorCardWidth);
+      }
     } 
   }
   &.return-instructor {
@@ -130,16 +154,14 @@ h1 {
   0% { z-index: 1 }
   100% {
     z-index: 1;
-    width: calc(#{$instructorCardWidth} * 3);
-    height: calc(#{$instructorCardWidth} * 2);
+    height: calc(#{$instructorCardWidth} * 3);
   }
 }
 
 @keyframes return-card {
   0% {
     z-index: 1;
-    width: calc(#{$instructorCardWidth} * 3);
-    height: calc(#{$instructorCardWidth} * 2);
+    height: calc(#{$instructorCardWidth} * 3);
   }
   99% {
     z-index: 1;
@@ -148,5 +170,32 @@ h1 {
     z-index: 0;
     width: $instructorCardWidth;
     height: $instructorCardWidth;
+  }
+}
+
+@media screen and (min-width: $break-medium){
+  @keyframes enlarge-card {
+    0% { z-index: 1 }
+    100% {
+      z-index: 1;
+        width: calc(#{$instructorCardWidth} * 3);
+        height: calc(#{$instructorCardWidth} * 2);
+    }
+  }
+
+  @keyframes return-card {
+    0% {
+      z-index: 1;
+        width: calc(#{$instructorCardWidth} * 3);
+        height: calc(#{$instructorCardWidth} * 2);
+    }
+    99% {
+      z-index: 1;
+    }
+    100% {
+      z-index: 0;
+      width: $instructorCardWidth;
+      height: $instructorCardWidth;
+    }
   }
 }
