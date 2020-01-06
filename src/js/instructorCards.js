@@ -2,6 +2,7 @@ const instructorCards = document.querySelectorAll(`.instructor`);
 const instructorBios = document.querySelectorAll(`.instructor-bio > p`);
 let showChar = 150;
 let ellipsestext = `...`;
+let updateShow = document.getElementById(`activeCard`);
 
 instructorBios.forEach(biography => {
   let content = biography.innerHTML;
@@ -22,10 +23,11 @@ function enlargeCard() {
   let readMore = this.querySelector(`.read-more`);
   bioEllipses.innerHTML = ``;
   readMore.innerHTML = `Show Less`;
-  readMore.classList.add(`show-less-active`);
+  readMore.setAttribute(`id`, `activeCard`);
   hiddenText.style.display = `block`;
   this.classList.add(`instructor-active`);
   this.classList.remove(`return-instructor`);
+
 
   if(cardNumber % 3 === 2) {
     this.classList.add(`middle-card-active`);
@@ -36,24 +38,22 @@ function enlargeCard() {
   }
 
   let activeCard = this;
+  let showLess = this.querySelector(`#activeCard`);
 
   document.addEventListener(`click`, checkClick);
-  readMore.addEventListener(`click`, function () {
-    if(readMore.classList.contains(`show-less-active`)) {
-      returnCard();
-      activeCard.addEventListener(`click`, enlargeCard);
-    }
-  });
 
   function checkClick() {
     let isClickInside = activeCard.contains(event.target);
     if(!isClickInside) {
       returnCard();
       activeCard.addEventListener(`click`, enlargeCard);
-      document.removeEventListener(`click`, checkClick);
-      return;
     }
   }
+  showLess.addEventListener(`click`, function () {
+    returnCard();
+    showLess.addEventListener(`click`, enlargeCard);
+
+  });
 
   function returnCard() {
     activeCard.classList.remove(`instructor-active`);
@@ -69,7 +69,9 @@ function enlargeCard() {
     bioEllipses.innerHTML = ellipsestext;
     readMore.innerHTML = `Read More`;
     hiddenText.style.display = `none`;
-    readMore.classList.toggle(`show-less-active`);
+    showLess.removeAttribute(`id`);
+
+
   }
 }
 
