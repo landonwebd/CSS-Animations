@@ -69,7 +69,7 @@ function enlargeCard() {
     bioEllipses.innerHTML = ellipsestext;
     readMore.innerHTML = `Read More`;
     hiddenText.style.display = `none`;
-    showLess.removeAttribute(`id`);
+    showLess.removeAttribute(`#activeCard`);
 
 
   }
