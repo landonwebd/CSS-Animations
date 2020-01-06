@@ -2,7 +2,7 @@ const instructorCards = document.querySelectorAll(`.instructor`);
 const instructorBios = document.querySelectorAll(`.instructor-bio > p`);
 let showChar = 150;
 let ellipsestext = `...`;
-let updateShow = document.getElementById(`activeCard`);
+let updateShow = document.getElementById(`sactiveCard`);
 
 instructorBios.forEach(biography => {
   let content = biography.innerHTML;
@@ -69,8 +69,7 @@ function enlargeCard() {
     bioEllipses.innerHTML = ellipsestext;
     readMore.innerHTML = `Read More`;
     hiddenText.style.display = `none`;
-    showLess.removeAttribute(`#activeCard`);
-
+    showLess.removeAttribute(`id`);
 
   }
 }
