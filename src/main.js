@@ -1,2 +1,2 @@
-import './js/slideIn.js';
+import './js/schedule.js';
 import './scss/styles.scss';
