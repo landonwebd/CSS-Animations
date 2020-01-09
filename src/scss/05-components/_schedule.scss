@@ -1,0 +1,79 @@
+:root {
+  --colNum: 8;
+  --rowNum: 8;
+}
+
+.schedule-container {
+  width: 80vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 200px repeat(var(--colNum), 1fr);
+  grid-template-rows: repeat(var(--rowNum), 100px);
+  gap: 20px;
+  margin-top: 5em;
+  div {
+    color: #ffffff;
+    border: solid 1px #ffffff;
+    display: flex;
+    justify-content: center;
+    &.empty-cell {
+      border: none;
+    }
+    span {
+      margin: auto;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      white-space: nowrap;
+      border-radius: 50%;
+      text-align: center;
+      &.time {
+        margin-left: 20px;
+        width: 100%;
+      }
+      &.taekwondo {
+        background-color: red;
+      }
+      &.jiu-jitsu {
+        background-color: blue;
+      }
+      &.basket-weaving {
+        background-color: orange;
+      }
+      &.karate {
+        background-color: lightgreen;
+      }
+      &.jazzercise {
+        background-color: lightpink;
+      }
+    }
+  }
+}
+
+.program-row {
+  width: 80vw;
+  margin: 0 auto;
+  display: flex;
+  .program-name {
+    flex: 1;
+    background-color: darkslategrey;
+    color: #ffffff;
+    font-size: 2rem;
+    padding: 10px 0;
+    text-align: center;
+    border: solid 1px black;
+    border-radius: 15px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+}
+
+.show-all {
+  margin: 0 auto;
+  display: block;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: darkmagenta;
+  color: #ededed;
+}
+
