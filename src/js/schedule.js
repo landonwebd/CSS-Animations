@@ -10,76 +10,89 @@ programs.forEach(program => {
 });
 
 function removeProgram() {
+  showAllProgram();
   let className = this.classList[ 1 ];
-  courses.forEach(course => {
-    if(course.classList.contains(className)) {
-      course.style.display = `block`;
+  let classCellChildrenStatus = [];
+  classCells.forEach(classCell => {
+    let classCellChildren = classCell.childNodes;
+    if(classCellChildren.length === 0) {
+      classCell.dataset.currentState = `empty`;
+      classCellChildrenStatus.push(`empty`);
     } else {
-      course.style.display = `none`;
+      classCellChildrenArray = [];
+      classCellChildren.forEach(classCellChild => {
+        if(classCellChild.classList.contains(className)) {
+          classCellChild.classList.add(`grow-class`);
+          classCellChild.classList.remove(`shrink-class`);
+          classCellChildrenArray.push(`full`);
+        } else {
+          classCellChild.classList.add(`shrink-class`);
+          classCellChild.classList.remove(`grow-class`);
+          classCellChildrenArray.push(`empty`);
+        }
+      });
+      if(classCellChildrenArray.includes(`full`)) {
+        classCellChildrenStatus.push(`full`);
+      } else {
+        classCellChildrenStatus.push(`empty`);
+      }
     }
   });
-  reduceHeight(className);
-  checkRow();
+  checkRow(classCellChildrenStatus);
 }
 
 showAll.addEventListener(`click`, showAllProgram);
 
 function showAllProgram() {
   courses.forEach(course => {
-    course.style.display = `block`;
+    course.classList.add(`grow-class`);
   });
   classCells.forEach(classCell => {
-    classCell.style.display = ``;
+    classCell.classList.add(`grow-cell`);
+    classCell.classList.remove(`shrink-cell`);
   });
   rowList.forEach(rowListTime => {
-    rowListTime.style.display = ``;
+    rowListTime.classList.add(`grow-cell`);
+    rowListTime.classList.remove(`shrink-cell`);
+    rowListTime.firstChild.style.display = ``;
   });
 }
 
-function reduceHeight(activeClass) {
-  classCells.forEach(classCell => {
-    let classCellsChildren = classCell.childNodes;
-    let classCellClass = 0;
-    classCellsChildren.forEach(courseChild => {
-      if(courseChild.classList.contains(activeClass)) {
-        classCellClass = classCellClass + 1;
+function checkRow(classesArray) {
+  let rowsArray = [];
+  let i = 0;
+
+  while(classesArray.length > 0) {
+    let checkRow = classesArray.splice(0, colNum);
+    rowsArray.push(checkRow);
+  }
+
+  rowsArray.forEach(row => {
+    if(!row.includes(`full`)) {
+      rowList[ i ].classList.toggle(`grow-cell`);
+      rowList[ i ].classList.toggle(`shrink-cell`);
+      rowList[ i ].firstChild.style.display = `none`;
+    }
+    i++;
+  });
+
+  emptyRows();
+
+}
+
+function emptyRows() {
+  let updatedRowList = document.querySelectorAll(`.time-slot`);
+
+  for(i = 0; i < updatedRowList.length; i++) {
+    if(updatedRowList[ i ].classList.contains(`shrink-cell`)) {
+      let k = updatedRowList[ i ].nextElementSibling;
+
+      for(j = 0; j < colNum; j++) {
+        k.classList.toggle(`grow-cell`);
+        k.classList.toggle(`shrink-cell`);
+        console.log(k);
+        k = k.nextElementSibling;
       }
-    });
-    if(classCellClass === 0) {
-      classCell.style.display = `none`;
-    } else {
-      classCell.style.display = ``;
-    }
-  });
-}
-
-function checkRow() {
-  let rowArray = [];
-  for(i = 0; i < classCells.length; i++) {
-    if(classCells[ i ].style.display === `none`) {
-      rowArray.push(`none`);
-    } else {
-      rowArray.push(`full`);
     }
   }
-
-  let rowChunkArray = [];
-  while(rowArray.length > 0) {
-    let rowChunk;
-    rowChunk = rowArray.splice(0, colNum);
-    rowChunkArray.push(rowChunk);
-
-  }
-
-  let activeRow = 0;
-  rowChunkArray.forEach(rowChunk => {
-    if(rowChunk.includes(`full`)) {
-      rowList[ activeRow ].style.display = ``;
-    } else {
-      rowList[ activeRow ].style.display = `none`;
-    }
-    activeRow = activeRow + 1;
-
-  });
-
 }

@@ -3,32 +3,54 @@
   --rowNum: 8;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .schedule-container {
   width: 80vw;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 200px repeat(var(--colNum), 1fr);
-  grid-template-rows: repeat(var(--rowNum), 100px);
-  gap: 20px;
+  grid-template-rows: repeat(var(--rowNum), auto);
   margin-top: 5em;
   div {
     color: #ffffff;
-    border: solid 1px #ffffff;
     display: flex;
     justify-content: center;
-    &.empty-cell {
-      border: none;
+    border-right: solid 1px white;
+    &.shrink-cell {
+      height: 0;
+      transition: height 1s;  
+    }
+    &.grow-cell {
+      height: 100px;
+      transition: height 1s; 
     }
     span {
-      margin: auto;
-      width: 50px;
-      height: 50px;
       line-height: 50px;
       white-space: nowrap;
       border-radius: 50%;
       text-align: center;
+      &.shrink-class {
+        height: 50px;
+        width: 0px;
+        transform: scaleY(0) scaleX(0);
+        transition: 0.5s;
+      }
+      &.grow-class {
+        height: 50px;
+        width: 50px;
+        transform: scaleY(1) scaleX(1);
+        transition: 0.5s;
+        &:hover {
+          transform: scale(3, 3);
+          z-index: 1;
+        }
+      }
       &.time {
         margin-left: 20px;
+        text-align: left;
         width: 100%;
       }
       &.taekwondo {
