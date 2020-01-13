@@ -23,7 +23,7 @@ function enlargeCard() {
   let readMore = this.querySelector(`.read-more`);
   // bioEllipses.innerHTML = ``;
   readMore.innerHTML = `Show Less`;
-  readMore.setAttribute(`id`, `activeCard`);
+  readMore.id = 'activeCard'; /* replaces this: readMore.setAttribute('id', 'activeCard'); */
   hiddenText.style.display = `block`;
   this.classList.add(`instructor-active`);
   this.classList.remove(`return-instructor`);
