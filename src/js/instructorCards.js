@@ -18,10 +18,10 @@ instructorBios.forEach(biography => {
 function enlargeCard() {
   this.removeEventListener(`click`, enlargeCard);
   let cardNumber = this.getAttribute(`data-number`);
-  let bioEllipses = this.querySelector(`.bio-ellipses`);
+  // let bioEllipses = this.querySelector(`.bio-ellipses`);
   let hiddenText = this.querySelector(`span.hidden-text`);
   let readMore = this.querySelector(`.read-more`);
-  bioEllipses.innerHTML = ``;
+  // bioEllipses.innerHTML = ``;
   readMore.innerHTML = `Show Less`;
   readMore.setAttribute(`id`, `activeCard`);
   hiddenText.style.display = `block`;
@@ -66,7 +66,7 @@ function enlargeCard() {
     }
     activeCard.classList.add(`return-instructor`);
     activeCard.parentNode.style.removeProperty(`justify-self`);
-    bioEllipses.innerHTML = ellipsestext;
+    // bioEllipses.innerHTML = ellipsestext;
     readMore.innerHTML = `Read More`;
     hiddenText.style.display = `none`;
     showLess.removeAttribute(`id`);
