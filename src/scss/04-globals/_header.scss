@@ -1,46 +1,83 @@
-.heroImage {
-  height: 80vh;
-  position: relative;
-  img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 0 20%;
-  }
-  h1 {
-    position: absolute;
-    color: #fff;
-    top: 50%;
-    text-align: center;
-    width: 100%;
-    font-size: 3rem;
-  }
-  p {
-    position: absolute;
-    text-align: center;
-    font-size: 2rem;
-    width: 100%;
-    top: calc(50% + 4rem);
-  }
+@import url('https://fonts.googleapis.com/css?family=Racing+Sans+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli:300,300i,400,500,600i,700,700i&display=swap');
+
+$lato: 'Lato', sans-serif;
+$muli: 'Muli', sans-serif;
+$display-font: 'Racing Sans One', sans-serif;
+$light-gray: #ededed;
+$white: #fff;
+$dark-gradient: linear-gradient(#6B6E70, #474B4F);
+$dark-gradient-to-right: linear-gradient(to right, #222629, #474B4F); 
+$button-gradient-to-right: linear-gradient(to right, #2B94C8, #13435B);
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: $lato;
 }
 
 body {
-  background-color: $mainTheme;
-  color: #e0e0e0;
+  height: 5000px;
 }
 
-.center {
-  text-align: center;
+.hero-image {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column: 1/5;
 }
 
-.heading {
-  text-align: center;
-  font-size: 48px;
-  color: $accentFour;
+.header {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
 }
 
-.sub-heading{ 
-  text-align: center;
-  color: $accentThree;
-}
+// .heroImage {
+//   height: 80vh;
+//   position: relative;
+//   img {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     object-position: 0 20%;
+//   }
+//   h1 {
+//     position: absolute;
+//     color: #fff;
+//     top: 50%;
+//     text-align: center;
+//     width: 100%;
+//     font-size: 3rem;
+//   }
+//   p {
+//     position: absolute;
+//     text-align: center;
+//     font-size: 2rem;
+//     width: 100%;
+//     top: calc(50% + 4rem);
+//   }
+// }
+
+// body {
+//   background-color: $mainTheme;
+//   color: #e0e0e0;
+// }
+
+// .center {
+//   text-align: center;
+// }
+
+// .heading {
+//   text-align: center;
+//   font-size: 48px;
+//   color: $accentFour;
+// }
+
+// .sub-heading{ 
+//   text-align: center;
+//   color: $accentThree;
+// }

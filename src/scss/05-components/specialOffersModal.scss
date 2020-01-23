@@ -1,0 +1,53 @@
+#specialOfferModal {
+  .modal-dialog {
+    margin: 5% 10%;
+    max-width: 100%;
+    .modal-content {
+      background-image: linear-gradient(#6B6E70, #474B4F);
+      border-radius: 25px;
+      .modal-body {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); 
+        padding: 10% 2%;
+      }
+      .modal-header {
+          .modal-title{
+            color: #fff;
+            font-family: 'Muli', sans-serif;
+            font-weight: 400;
+            font-size: 2rem;
+            text-align: center;
+          }
+      }
+    }
+  }
+}
+
+.special-offer {
+  display: grid;
+  place-items: center;
+  button {
+    padding: 10px 25px;
+    background-image: linear-gradient(to right, #2B94C8, #13435B);
+    color: #fff;
+    border-radius: 25px;
+    border: none;
+  }
+}
+
+.special-offer-image {
+  width: 250px;
+  height: 250px;
+  background-size: cover;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  box-shadow: 7px 7px 6px rgba(0,0,0,.3);
+}
+
+.special-offer-text {
+  color: #fff;
+  font-family: 'Muli', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.4rem;
+}

@@ -1,0 +1,19 @@
+.navigation {
+  background-image: $dark-gradient-to-right;
+  font-family: $muli;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.navbar-nav {
+  li {
+    padding: 0 1vw;
+    a {
+      color: $white;
+    }
+  }
+}
+
+.navbar-brand>img {
+  max-height: 70px;
+}

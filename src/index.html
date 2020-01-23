@@ -6,63 +6,166 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="https://kit.fontawesome.com/6a8f14bd87.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <nav class="animation-nav">
+  <div class="sticky-form">
 
-  </nav>
-  <div class="heroImage">
-    <img src="./images/Cat5_RestingBoxer.jpg" alt="">
-    <h1>
-      Animation Library
-    </h1>
-    <p>Check out all of our fracking awesome animations</p>
-  </div>
-  <div class="content-block">
-    <h1 class="center">This is a Heading</h1>
-    <h3 class="sub-heading">This is a Sub Headding</h3>
-    <p class="center">This is a paragraph of informational text</p>
-  </div>
-  <div class="slide-container">
-    <div class="text-content text-content-left">
-      <h2 class="center sub-heading">Watch the images slide in</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum quam eveniet eum dolor a? Hic laborum aut
-        similique
-        praesentium voluptatibus rerum quibusdam, eaque provident eos nisi id consequatur in facilis. Lorem ipsum
-        dolor
-        sit amet, consectetur adipisicing elit. Quos eos dignissimos, veritatis voluptatum, quam error debitis
-        laboriosam
-        rem quis, quae deserunt possimus architecto labore? Optio eligendi adipisci sunt a praesentium! Lorem ipsum
-        dolor
-        sit amet consectetur adipisicing elit. Libero, officia, repudiandae distinctio provident beatae dolores
-        corporis!
-      </p>
+    <div class="form-tagline">
+      <h2>Want to learn more about our programs?</h2>
     </div>
-    <img class="slide-in slide-in-right" src="./images/Cat5_BJJ-Teaching.jpg" alt="">
-  </div>
-  <div class="content-block">
-    <h1 class="center">This is a Heading</h1>
-    <h3 class="sub-heading">This is a Sub Headding</h3>
-    <p class="center">This is a paragraph of informational text</p>
-  </div>
-  <div class="slide-container">
-    <div class="text-content text-content-right">
-      <h2 class="center sub-heading">Watch the images slide in</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum quam eveniet eum dolor a? Hic laborum aut
-        similique
-        praesentium voluptatibus rerum quibusdam, eaque provident eos nisi id consequatur in facilis. Lorem ipsum
-        dolor
-        sit amet, consectetur adipisicing elit. Quos eos dignissimos, veritatis voluptatum, quam error debitis
-        laboriosam
-        rem quis, quae deserunt possimus architecto labore? Optio eligendi adipisci sunt a praesentium! Lorem ipsum
-        dolor
-        sit amet consectetur adipisicing elit. Libero, officia, repudiandae distinctio provident beatae dolores
-        corporis!
-      </p>
+    <div class="form-more-text">
+      <p class="hidden">Sign up today to receive news on up and coming programs and schedule updates!</p>
     </div>
-    <img class="slide-in slide-in-left" src="./images/Cat5_BJJ-Teaching.jpg" alt="">
+    <div class="form-content hidden">
+      <form action="" method="post">
+        <div class="user-name">
+          <label for="name"></label>
+          <input id="name" type="text" name="user_name" placeholder="First Name">
+        </div>
+        <div class="user-email">
+          <label for="email"></label>
+          <input id="email" type="email" name="user_name" placeholder="Email Address">
+        </div>
+        <div class="submit-btn">
+          <button type="submit">Request Info</button>
+        </div>
+      </form>
+    </div>
+    <div class="close-btn">
+      <div class="close-triangle"></div>
+    </div>
   </div>
+
+  <section id="modal">
+    <div class="modal fade" id="specialOfferModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">AK Family Taekwondo Special Offers</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="special-offer">
+              <p class="special-offer-text">This is a Special Offer</p>
+              <div class="special-offer-image"
+                style="background-image: url('images/ak-family-tkd_birthday-party-mockup.jpg')"></div>
+              <button type="button" class="">Learn More</button>
+            </div>
+            <div class="special-offer">
+              <p class="special-offer-text">This is a Special Offer</p>
+              <div class="special-offer-image"
+                style="background-image: url('images/ak-family-tkd_students-with-instructor-lee-mockup.jpg')"></div>
+              <button type="button" class="">Learn More</button>
+            </div>
+            <div class="special-offer">
+              <p class="special-offer-text">This is a Special Offer</p>
+              <div class="special-offer-image"
+                style="background-image: url('images/ak-family-tkd_transportation-vans-mockup.jpg')"></div>
+              <button type="button" class="">Learn More</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="nav">
+    <div class="navigation">
+      <nav class="navbar navbar-expand-lg">
+        <a href="#" class="navbar-brand">
+          <img src="images/Ak-Family-Taekwondo_logo-white-letters-mockup.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item">
+              <a href='#' class='nav-link'>Home</a>
+            </li>
+            <li class="nav-item">
+              <a href='#' class='nav-link'>Instructors</a>
+            </li>
+            <li class="nav-item">
+              <a href='#' class='nav-link'>Programs</a>
+            </li>
+            <li class="nav-item">
+              <a href='#' class='nav-link'>Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a href='#' class='nav-link'>Contact</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fab fa-facebook-messenger"></i>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+  <section class="header">
+
+    <div class="billboard">
+
+      <div class="hero-image"
+        style="background-image: url('images/ak-family-tkd_student-stretching-on-mat-mockup.jpg'); background-size: cover;">
+        <div class='inspirational-statement'>
+          <h1>TEACHING <br> LIFE SKILLS</h1>
+        </div>
+        <div class='special-offer-modal'>
+          <div class="special-offer-card">
+            <h2>AK Family Taekwondo Martial Arts</h2>
+            <p>View our trial offers today!</p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#specialOfferModal">
+              Special Offers
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
 
   <script src="./main.js"></script>
 
